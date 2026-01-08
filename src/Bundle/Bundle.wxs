@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+
+  <Bundle Name="MyWixV4WpfBA"
+          Manufacturer="Example"
+          Version="1.0.0.0"
+          UpgradeCode="{B3B5C2C9-4A2B-41D1-9D5F-CB1F0AE73E0D}">
+
+    <BootstrapperApplication>
+      <!-- ManagedBootstrapperApplicationHost loads the managed BA type.
+           You will later update these values to match your assembly/type name. -->
+      <bal:WpfBootstrapperApplication
+        AssemblyName="BA"
+        TypeName="MyWixV4WpfBA.BA.MyBootstrapperApplication" />
+    </BootstrapperApplication>
+
+    <Chain>
+      <!-- Placeholder MSI payload.
+           Replace payloads/MyProduct.msi with a real MSI (or add a project that builds one). -->
+      <MsiPackage SourceFile="..\..\payloads\MyProduct.msi" />
+    </Chain>
+  </Bundle>
+</Wix>

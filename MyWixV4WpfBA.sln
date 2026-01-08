@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BA", "src\BA\BA.csproj", "{7B5AA79F-4B4C-4C8C-9B85-9A0D7A0D5D2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bundle", "src\Bundle\Bundle.csproj", "{F0E5E0AA-02A9-4661-8B4B-3A4A4C9DD8E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B5AA79F-4B4C-4C8C-9B85-9A0D7A0D5D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B5AA79F-4B4C-4C8C-9B85-9A0D7A0D5D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B5AA79F-4B4C-4C8C-9B85-9A0D7A0D5D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B5AA79F-4B4C-4C8C-9B85-9A0D7A0D5D2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0E5E0AA-02A9-4661-8B4B-3A4A4C9DD8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0E5E0AA-02A9-4661-8B4B-3A4A4C9DD8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0E5E0AA-02A9-4661-8B4B-3A4A4C9DD8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0E5E0AA-02A9-4661-8B4B-3A4A4C9DD8E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

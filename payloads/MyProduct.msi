@@ -1,0 +1,12 @@
+This is an EMPTY PLACEHOLDER file.
+
+Replace this file with your real MSI named exactly:
+  payloads/MyProduct.msi
+
+Notes:
+- Git repositories often ignore/balk at committing large binary MSIs. Consider using:
+  - a build pipeline that produces the MSI, or
+  - Git LFS, or
+  - a smaller sample MSI.
+
+Once replaced, the WiX bundle project (src/Bundle) references it from Bundle.wxs.
