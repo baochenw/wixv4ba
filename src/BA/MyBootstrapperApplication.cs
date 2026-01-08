@@ -1,37 +1,44 @@
 using System;
+using System.Threading;
+using System.Windows;
 using WixToolset.BootstrapperApplicationApi;
-using WixToolset.BootstrapperApplicationCore;
 
-namespace MyWixV4WpfBA.BA;
-
-/// <summary>
-/// Minimal WiX v4 managed BootstrapperApplication.
-/// 
-/// Notes:
-/// - Burn will create this type via reflection.
-/// - A full implementation should handle Detect/Plan/Apply and drive the WPF UI.
-/// - This skeleton keeps things simple and is intended as a starting point.
-/// </summary>
-public class MyBootstrapperApplication : BootstrapperApplication
+namespace MyBA
 {
-    protected override void Run()
+    /// <summary>
+    /// Managed BA entry point loaded by bal:ManagedBootstrapperApplicationHost.
+    /// This BA hosts a WPF window without using ApplicationDefinition as the entry point.
+    /// </summary>
+    public sealed class MyBootstrapperApplication : BootstrapperApplication
     {
-        Engine.Log(LogLevel.Standard, "MyBootstrapperApplication starting.");
+        private Thread? _uiThread;
 
-        // Basic event wiring (expand as needed)
-        this.DetectComplete += (_, e) => Engine.Log(LogLevel.Standard, $"DetectComplete: Status={e.Status}");
-        this.PlanComplete += (_, e) => Engine.Log(LogLevel.Standard, $"PlanComplete: Status={e.Status}");
-        this.ApplyComplete += (_, e) => Engine.Log(LogLevel.Standard, $"ApplyComplete: Status={e.Status}");
+        protected override void Run()
+        {
+            // Start WPF UI on an STA thread.
+            _uiThread = new Thread(() =>
+            {
+                var app = new App
+                {
+                    ShutdownMode = ShutdownMode.OnMainWindowClose
+                };
 
-        // Kick off initial detect.
-        Engine.Detect();
+                var window = new MainWindow();
+                app.MainWindow = window;
+                window.Show();
 
-        // Show a simple WPF window. In a real BA, you would run a message loop and
-        // drive plan/apply from UI commands.
-        var app = new App();
-        var window = new MainWindow();
-        app.Run(window);
+                // Typically you'd wire up Engine events -> UI viewmodel here.
+                app.Run();
+            });
 
-        Engine.Quit(0);
+            _uiThread.SetApartmentState(ApartmentState.STA);
+            _uiThread.IsBackground = false;
+            _uiThread.Start();
+
+            // Wait for UI to exit.
+            _uiThread.Join();
+
+            Engine.Quit(0);
+        }
     }
 }

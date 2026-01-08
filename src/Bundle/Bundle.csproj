@@ -1,21 +1,13 @@
-<Project Sdk="WixToolset.Sdk/4.0.6">
-
+<Project Sdk="WixToolset.Sdk/5.0.0">
   <PropertyGroup>
     <OutputType>Bundle</OutputType>
-    <OutputName>MyBundle</OutputName>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Burn + managed BA host -->
-    <PackageReference Include="WixToolset.Bal.wixext" Version="4.0.6" />
+    <PackageReference Include="WixToolset.Bal.wixext" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BA\BA.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Bundle.wxs" />
-  </ItemGroup>
-
 </Project>

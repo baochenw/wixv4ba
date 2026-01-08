@@ -1,15 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <Nullable>disable</Nullable>
-    <ImplicitUsings>disable</ImplicitUsings>
+
+    <AssemblyName>MyBA</AssemblyName>
+    <RootNamespace>MyBA</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WixToolset.BootstrapperApplicationApi" Version="4.0.6" />
+    <PackageReference Include="WixToolset.BootstrapperApplicationApi" Version="5.0.0" />
   </ItemGroup>
-
 </Project>

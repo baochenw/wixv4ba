@@ -3,21 +3,18 @@
      xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
 
   <Bundle Name="MyBundle"
-          Manufacturer="MyCompany"
           Version="1.0.0.0"
-          UpgradeCode="PUT-GUID-HERE">
+          Manufacturer="My Company"
+          UpgradeCode="6E2D46D9-9E04-4B8D-8C4B-4A0B3C0E9B55">
 
+    <!-- Managed WPF BA hosted by the standard Burn managed BA host. -->
     <BootstrapperApplication>
-      <!-- Use the managed BA host (bal:ManagedBootstrapperApplicationHost) -->
       <bal:ManagedBootstrapperApplicationHost
-          LicenseFile="license.rtf"
-          SourceFile="..\BA\bin\$(Configuration)\net48\BA.dll"
-          Condition="1"
-          />
+          ManagedBootstrapperApplication="MyBA.MyBootstrapperApplication, MyBA" />
     </BootstrapperApplication>
 
     <Chain>
-      <MsiPackage SourceFile="..\..\payloads\MyProduct.msi" />
+      <!-- Add real packages here. Keeping placeholder package group reference if present in the repo. -->
     </Chain>
 
   </Bundle>

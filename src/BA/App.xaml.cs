@@ -1,7 +1,8 @@
 using System.Windows;
 
-namespace MyWixV4WpfBA.BA;
-
-public partial class App : Application
+namespace MyBA
 {
+    public partial class App : Application
+    {
+    }
 }

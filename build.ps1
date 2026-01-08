@@ -1,37 +1,29 @@
-[CmdletBinding()]
 param(
-  [string]$Configuration = "Release"
+  [string]$Configuration = "Release",
+  [string]$Artifacts = "artifacts"
 )
 
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = "Stop"
 
-$repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$repoRoot = Split-Path -Parent $PSCommandPath
 Set-Location $repoRoot
 
-$payload = Join-Path $repoRoot "payloads/MyProduct.msi"
-if (-not (Test-Path $payload)) {
-  throw "Required payload is missing: $payload`nThis repo expects payloads/MyProduct.msi to exist (placeholder is fine)."
+if (!(Test-Path $Artifacts)) {
+  New-Item -ItemType Directory -Path $Artifacts | Out-Null
 }
 
-$artifacts = Join-Path $repoRoot "artifacts"
-New-Item -ItemType Directory -Force -Path $artifacts | Out-Null
+Write-Host "Building solution..."
+dotnet build . -c $Configuration
 
-$bundleProj = Join-Path $repoRoot "src/Bundle/Bundle.csproj"
-
-Write-Host "Restoring..."
-dotnet restore $bundleProj
-
-Write-Host "Building bundle ($Configuration)..."
-dotnet build $bundleProj -c $Configuration
-
-# Find produced bundle exe under bin/<cfg>/.../MyBundle.exe
-$bundleExe = Get-ChildItem -Path (Join-Path $repoRoot "src/Bundle/bin") -Recurse -Filter "MyBundle.exe" |
+# Copy newest bundle exe to artifacts.
+$bundleExe = Get-ChildItem -Path $repoRoot -Recurse -Filter "MyBundle.exe" |
   Sort-Object LastWriteTime -Descending |
   Select-Object -First 1
 
-if (-not $bundleExe) {
-  throw "Bundle output MyBundle.exe not found under src/Bundle/bin."
+if ($null -eq $bundleExe) {
+  throw "Could not find MyBundle.exe after build."
 }
 
-Copy-Item $bundleExe.FullName (Join-Path $artifacts "MyBundle.exe") -Force
-Write-Host "OK: artifacts/MyBundle.exe"
+$dest = Join-Path $Artifacts "MyBundle.exe"
+Copy-Item $bundleExe.FullName $dest -Force
+Write-Host "Copied $($bundleExe.FullName) -> $dest"

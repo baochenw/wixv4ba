@@ -1,16 +1,12 @@
 using System.Windows;
 
-namespace MyWixV4WpfBA.BA;
-
-public partial class MainWindow : Window
+namespace MyBA
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
-    }
-
-    private void Exit_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
     }
 }
