@@ -1,16 +1,34 @@
+[CmdletBinding()]
 param(
-  [ValidateSet('Debug','Release')]
-  [string]$Configuration = 'Release'
+  [string]$Configuration = "Release",
+  [switch]$Zip
 )
 
 $ErrorActionPreference = 'Stop'
 
-Write-Host "Packing bundle (Configuration=$Configuration)" -ForegroundColor Cyan
+$repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $repoRoot
 
-# This project uses the WiX v4 MSBuild SDK.
-# Ensure you have restored packages and have the .NET SDK.
+./build.ps1 -Configuration $Configuration
 
-& dotnet restore "./MyWixV4WpfBA.sln"
-& dotnet build "./src/Bundle/Bundle.csproj" -c $Configuration
+if ($Zip) {
+  $artifacts = Join-Path $repoRoot "artifacts"
+  $exe = Join-Path $artifacts "MyBundle.exe"
+  if (-not (Test-Path $exe)) {
+    throw "Expected artifact not found: $exe"
+  }
 
-Write-Host "Bundle build complete. Output is under src/Bundle/bin/$Configuration" -ForegroundColor Green
+  $zipPath = Join-Path $artifacts "MyBundle.zip"
+  if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
+
+  Add-Type -AssemblyName System.IO.Compression.FileSystem
+  $tmpDir = Join-Path $artifacts "_ziptmp"
+  if (Test-Path $tmpDir) { Remove-Item $tmpDir -Recurse -Force }
+  New-Item -ItemType Directory -Path $tmpDir | Out-Null
+
+  Copy-Item $exe (Join-Path $tmpDir "MyBundle.exe") -Force
+  [System.IO.Compression.ZipFile]::CreateFromDirectory($tmpDir, $zipPath)
+  Remove-Item $tmpDir -Recurse -Force
+
+  Write-Host "OK: $zipPath"
+}

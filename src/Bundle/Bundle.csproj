@@ -1,15 +1,21 @@
-<Project Sdk="WixToolset.Sdk/4.0.5">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <OutputType>Bundle</OutputType>
-    <Nullable>enable</Nullable>
+<Project Sdk="WixToolset.Sdk/4.0.6">
 
-    <!-- Where the bundle authoring lives -->
-    <WixSource>Bundle.wxs</WixSource>
+  <PropertyGroup>
+    <OutputType>Bundle</OutputType>
+    <OutputName>MyBundle</OutputName>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Reference the managed BA output. In a real project you may publish/self-contained it. -->
+    <!-- Burn + managed BA host -->
+    <PackageReference Include="WixToolset.Bal.wixext" Version="4.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BA\BA.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Bundle.wxs" />
+  </ItemGroup>
+
 </Project>

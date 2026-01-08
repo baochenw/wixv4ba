@@ -1,21 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
 
-    <!-- WiX BootstrapperApplications are normally loaded by the Burn engine.
-         The output here is a managed assembly you reference from the Bundle project. -->
-    <AssemblyName>BA</AssemblyName>
-    <RootNamespace>MyWixV4WpfBA.BA</RootNamespace>
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+    <UseWPF>true</UseWPF>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- WiX v4 bootstrapper application and utilities. -->
-    <PackageReference Include="WixToolset.BootstrapperApplicationApi" Version="4.0.5" />
-    <PackageReference Include="WixToolset.BootstrapperApplicationCore" Version="4.0.5" />
-    <PackageReference Include="WixToolset.Util" Version="4.0.5" />
+    <PackageReference Include="WixToolset.BootstrapperApplicationApi" Version="4.0.6" />
   </ItemGroup>
+
 </Project>
